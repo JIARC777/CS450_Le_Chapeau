@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 {
     [HideInInspector]
     public int id;
@@ -26,14 +26,30 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         rb = this.GetComponent<Rigidbody>();
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-        // checks for inputs on controls every frame, if Move detects an input it will change velocity
-        Move();
-        if (Input.GetKeyDown(KeyCode.Space))
-            TryJump();
+        //if you are host check if a player has won
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (currentHatTime >= GameManager.instance.timeToWin && !GameManager.instance.gameEnded)
+            {
+                GameManager.instance.gameEnded = true;
+                GameManager.instance.photonView.RPC("WinGame", RpcTarget.All, id);
+            }
+        }
+        if (photonView.IsMine)
+        {
+            // checks for inputs on controls every frame, if Move detects an input it will change velocity
+            Move();
+            if (Input.GetKeyDown(KeyCode.Space))
+                TryJump();
+
+            //track amount of time hat worn
+            if (hatObj.activeInHierarchy)
+                currentHatTime+= Time.deltaTime;
+        }
     }
 
     void Move()
@@ -89,5 +105,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
         }
+    }
+
+    // Rather than set up observable through photon view, access stream directly
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+            stream.SendNext(currentHatTime);
+        else if (stream.IsReading)
+            currentHatTime = (float)stream.ReceiveNext();
     }
 }

@@ -66,9 +66,6 @@ public class Menu : MonoBehaviourPunCallbacks
         PhotonNetwork.NickName = playerNameInput.text; 
     }
 
-    
-
-
     // This function handles the updating of the player list in the lobby screen and permissions for starting the game
     [PunRPC]
     public void UpdateLobbyUI ()

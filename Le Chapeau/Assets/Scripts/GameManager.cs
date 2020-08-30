@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Transform[] spawnPoints;
     public PlayerController[] players;
     public int playerWithHat;
-    int playersInGame;
+    private int playersInGame;
 
     // Thinking this is meant as a global access point but not a singleton
     public static GameManager instance;
@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         GameObject playerObj = PhotonNetwork.Instantiate(playerPrefabLocation, spawnPoints[Random.Range(0, spawnPoints.Length)].position, Quaternion.identity);
         //get player script
         PlayerController playerScript = playerObj.GetComponent<PlayerController>();
+        playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
 
     public PlayerController GetPlayer(int playerId)
@@ -87,5 +88,20 @@ public class GameManager : MonoBehaviourPunCallbacks
             return true;
         else
             return false;
+    }
+
+    [PunRPC]
+    void WinGame (int playerId)
+    {
+        gameEnded = true;
+        PlayerController player = GetPlayer(playerId);
+        GameUI.instance.SetWinText(player.photonPlayer.NickName);
+        Invoke("GoBackToMenu", 3.0f);
+    }
+
+    void GoBackToMenu()
+    {
+        PhotonNetwork.LeaveRoom();
+        NetworkManager.instance.ChangeScene("Menu");
     }
 }
