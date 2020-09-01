@@ -83,13 +83,13 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11182}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11414}
     - Class: 114
-      Script: {instanceID: 11556}
+      Script: {instanceID: 11492}
     - Class: 114
-      Script: {instanceID: 11588}
+      Script: {instanceID: 11558}
     - Class: 114
-      Script: {instanceID: 13372}
+      Script: {instanceID: 11590}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -172,11 +172,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11342}
     - Class: 114
-      Script: {instanceID: 11490}
+      Script: {instanceID: 11492}
     - Class: 114
-      Script: {instanceID: 11516}
+      Script: {instanceID: 11518}
     - Class: 114
-      Script: {instanceID: 11556}
+      Script: {instanceID: 11558}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -744,6 +744,12 @@ ScriptsOnlyBuild:
     className: OnEscapeQuit
   - hash:
       serializedVersion: 2
+      Hash: 6cc4e43f8c0099dee2756f4a39927863
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GameUI
+  - hash:
+      serializedVersion: 2
       Hash: df434544c9f7b33d1cc7e635b180d279
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -780,7 +786,7 @@ ScriptsOnlyBuild:
     className: Outline
   - hash:
       serializedVersion: 2
-      Hash: 81ea4882bed2aaad32492b54c6af142a
+      Hash: 36be6c89753277248d838e6f628ed0a1
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: PlayerController
@@ -856,12 +862,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: 6cc4e43f8c0099dee2756f4a39927863
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: GameUI
   platform: 5
   scenePathNames:
   - Assets/Scenes/Menu.unity

@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 2301967489395723047}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -293,6 +293,7 @@ MonoBehaviour:
   jumpForce: 4
   hatObj: {fileID: 2301967489369300512}
   currentHatTime: 0
+  rb: {fileID: 2301967489395723042}
 --- !u!1 &2301967489914925332
 GameObject:
   m_ObjectHideFlags: 0

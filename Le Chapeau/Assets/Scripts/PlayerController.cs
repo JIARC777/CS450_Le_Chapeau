@@ -16,15 +16,16 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
 
     [HideInInspector]
     public float currentHatTime;
-    Rigidbody rb;
+   
 
     [Header("Components")]
+    public Rigidbody rb;
     public Player photonPlayer;
 
     // Start is called before the first frame update
     void Start()
     {
-        rb = this.GetComponent<Rigidbody>();
+       // rb = this.GetComponent<Rigidbody>();
     }
     
     // Update is called once per frame
@@ -91,8 +92,9 @@ public class PlayerController : MonoBehaviourPunCallbacks, IPunObservable
         hatObj.SetActive(hasHat);
     }
 
-    private void OnCollisionEnter(Collision collision)
+   void OnCollisionEnter(Collision collision)
     {
+       // Debug.Log("Collision Detected");
         if (!photonView.IsMine)
             return;
         if (collision.gameObject.CompareTag("Player"))

@@ -31,9 +31,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+       // PhotonView PV = GetComponent<PhotonView>();
+       // Debug.Log(PV);
         // Get a list of all players and announce you are in game
         players = new PlayerController[PhotonNetwork.PlayerList.Length];
-        photonView.RPC("ImInGame", RpcTarget.All);
+        photonView.RPC("ImInGame", RpcTarget.AllBuffered);
     }
 
     [PunRPC]
