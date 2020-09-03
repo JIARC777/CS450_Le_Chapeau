@@ -1,0 +1,79 @@
+GM
+
+PhotonNetwork.Instantiate(hatLocation, new Vector3(0, 0.15f, 0), Quaternion.identity); 
+
+public void PlayerDied(int playerId)
+    {
+        if (playerId == playerWithHat)
+            playerWithHat = 0;
+      
+    }
+
+
+Hat
+
+using Photon.Pun;
+using Photon.Realtime;
+
+public class Hat : MonoBehaviourPunCallbacks
+{
+    public GameObject hatRef;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        photonView.RPC("HideHat", RpcTarget.All);
+    }
+
+    [PunRPC]
+    //This gets called whenever a player "grabs" the hat
+    void HideHat()
+    {
+        hatRef.SetActive(false);
+    }
+
+    void ShowHat()
+    {
+        this.GetComponent<GameObject>().SetActive(true);
+    }
+}
+
+
+Player
+
+void OnCollisionEnter(Collision collision)
+    {
+       // Debug.Log("Collision Detected");
+        if (!photonView.IsMine)
+            return;
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            if (GameManager.instance.GetPlayer(collision.gameObject).id == GameManager.instance.playerWithHat)
+            {
+                if(GameManager.instance.CanGetHat())
+                {
+                    GameManager.instance.photonView.RPC("GiveHat", RpcTarget.All, id, false);
+                }
+            }
+        }
+        if (collision.gameObject.CompareTag("Hat"))
+        {
+             GameManager.instance.photonView.RPC("GiveHat", RpcTarget.All, id, true);    
+        }
+        if (collision.gameObject.CompareTag("KillPlane"))
+        {
+            GameManager.instance.PlayerDied(id);
+            this.transform.position = GameManager.instance.spawnPoints[Random.Range(0, GameManager.instance.spawnPoints.Length)].position;
+        }
+
+    }
